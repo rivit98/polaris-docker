@@ -1,0 +1,7 @@
+#!/bin/sh
+
+POLARIS_ARGS=""
+[ -n "${POLARIS_DB}" ] && POLARIS_ARGS="${POLARIS_ARGS} -d ${POLARIS_DB}"
+[ -n "${POLARIS_CACHE_DIR}" ] && POLARIS_ARGS="${POLARIS_ARGS} --cache ${POLARIS_CACHE_DIR}"
+
+./polaris -p 5050 -f ${POLARIS_ARGS}
