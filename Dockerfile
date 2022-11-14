@@ -1,4 +1,4 @@
-FROM rust:latest as builder
+FROM rust:1.72.1 as builder
 
 RUN git clone https://github.com/agersant/polaris.git /build
 WORKDIR /build
@@ -11,12 +11,13 @@ ENV POLARIS_DB="/var/lib/polaris/polaris.db"
 
 WORKDIR /app
 
-RUN apt-get update && apt-get install -y \
+RUN apt-get update && apt-get install --no-install-recommends -y \
   unzip \
   wget \
+  ca-certificates \
   && rm -rf /var/lib/apt/lists/*
 
-RUN wget https://github.com/agersant/polaris-web/releases/latest/download/web.zip && unzip web && rm web.zip
+RUN wget --progress=dot:giga https://github.com/agersant/polaris-web/releases/latest/download/web.zip && unzip web && rm web.zip
 COPY --from=builder /build/target/release/polaris .
 COPY run.sh .
 
