@@ -1,4 +1,4 @@
-FROM rust:1.76.0 as builder
+FROM rust:latest as builder
 
 RUN git clone https://github.com/agersant/polaris.git /build
 WORKDIR /build
@@ -12,7 +12,7 @@ RUN wget --progress=dot:giga https://github.com/agersant/polaris-web/releases/la
   && unzip web \
   && rm web.zip
 
-FROM ubuntu:22.04 as runner
+FROM ubuntu:24.04 as runner
 WORKDIR /app
 ENV POLARIS_DB="/var/lib/polaris/polaris.db"
 
